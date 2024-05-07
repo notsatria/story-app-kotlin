@@ -18,8 +18,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:src="@drawable/story_app_icon"
             android:contentDescription="@string/app_icon" />
 
@@ -28,14 +28,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="24sp" />
+            android:textSize="32sp" />
 
         <TextView
             style="@style/Poppins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/read_inspiring_stories"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

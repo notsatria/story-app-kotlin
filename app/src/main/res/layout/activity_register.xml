@@ -100,17 +100,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ed_register_email" />
 
-        <com.notsatria.storyapp.ui.components.PasswordEditText
-            android:id="@+id/ed_login_password"
-            style="@style/CustomEditText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_register_password"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawablePadding="4dp"
-            android:hint="@string/input_password"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/tv_register_password" />
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/tv_register_password"
+            app:passwordToggleEnabled="true">
+
+            <com.notsatria.storyapp.ui.components.PasswordEditText
+                android:id="@+id/ed_register_password"
+                style="@style/CustomEditText"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="4dp"
+                android:hint="@string/input_password"
+                android:inputType="textPassword"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_register"
@@ -119,10 +129,10 @@
             android:layout_height="55dp"
             android:layout_marginTop="55dp"
             android:text="@string/register"
-            app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
+            app:layout_constraintTop_toBottomOf="@id/layout_register_password" />
 
         <LinearLayout
-            android:id="@+id/tv_go_to_register"
+            android:id="@+id/tv_go_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
