@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="app_icon">App icon</string>
+    <string name="read_inspiring_stories">Read inspiring stories</string>
+</resources>
