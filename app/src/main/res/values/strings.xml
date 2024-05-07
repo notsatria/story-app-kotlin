@@ -2,4 +2,7 @@
     <string name="app_name">Story App</string>
     <string name="app_icon">App icon</string>
     <string name="read_inspiring_stories">Read inspiring stories</string>
+    <string name="please_enter_valid_email">Masukkan Email yang valid</string>
+    <string name="email_is_required">Email wajib diisi</string>
+    <string name="input_email">Masukkan Email</string>
 </resources>
