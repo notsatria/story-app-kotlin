@@ -6,7 +6,7 @@
     <string name="email_is_required">Email wajib diisi</string>
     <string name="input_email">Masukkan Email Anda</string>
     <string name="email">Email</string>
-    <string name="login">Login</string>
+    <string name="login">Masuk</string>
     <string name="welcome_to_storee">Hai! Selamat Datang di Storee!</string>
     <string name="password">Password</string>
     <string name="input_password">Masukkan password</string>
@@ -14,4 +14,10 @@
     <string name="password_length_is_not_enough">Password tidak boleh kurang dari 8 karakter</string>
     <string name="dont_have_an_account">Belum punya akun? </string>
     <string name="register_here">Daftar di sini</string>
+    <string name="register">Daftar</string>
+    <string name="register_your_account">Daftarkan diri Anda di Storee</string>
+    <string name="have_an_account">"Sudah punya akun? "</string>
+    <string name="name">Nama</string>
+    <string name="input_name">Masukkan Nama Anda</string>
+    <string name="name_is_required">Nama wajib diisi</string>
 </resources>
