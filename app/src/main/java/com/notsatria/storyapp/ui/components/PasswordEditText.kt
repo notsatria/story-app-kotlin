@@ -10,17 +10,17 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.notsatria.storyapp.R
 
-class EmailEditText @JvmOverloads constructor(
+class PasswordEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatEditText(context, attrs) {
 
     init {
-        inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = context.getString(R.string.input_email)
+        hint = context.getString(R.string.input_password)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -40,11 +40,12 @@ class EmailEditText @JvmOverloads constructor(
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
         if (text.toString().isEmpty()) {
-            setError(context.getString(R.string.email_is_required), null)
-        } else if (!text.toString().contains('@')) {
-            setError(context.getString(R.string.please_enter_valid_email), null)
+            setError(context.getString(R.string.password_is_required), null)
+        } else if (text.toString().length < 8) {
+            setError(context.getString(R.string.password_length_is_not_enough), null)
         } else {
             error = null
         }
     }
+
 }

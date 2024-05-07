@@ -25,16 +25,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         with(binding) {
-            edLoginEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    edLoginEmail.background =
-                        ContextCompat.getDrawable(this@LoginActivity, R.drawable.edit_text_focused)
-                } else {
-                    edLoginEmail.background =
-                        ContextCompat.getDrawable(this@LoginActivity, R.drawable.edit_text_border)
-                }
-
-            }
         }
     }
 }
