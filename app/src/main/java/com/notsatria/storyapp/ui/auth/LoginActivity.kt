@@ -1,21 +1,40 @@
 package com.notsatria.storyapp.ui.auth
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.notsatria.storyapp.R
+import com.notsatria.storyapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        with(binding) {
+            edLoginEmail.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    edLoginEmail.background =
+                        ContextCompat.getDrawable(this@LoginActivity, R.drawable.edit_text_focused)
+                } else {
+                    edLoginEmail.background =
+                        ContextCompat.getDrawable(this@LoginActivity, R.drawable.edit_text_border)
+                }
+
+            }
         }
     }
 }

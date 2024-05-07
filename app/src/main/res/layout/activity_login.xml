@@ -7,4 +7,78 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.LoginActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/header"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_login"
+        android:layout_width="match_parent"
+        android:layout_height="720dp"
+        android:background="@drawable/auth_background"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_login"
+            style="@style/Nunito.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/login"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="@id/cl_login"
+            app:layout_constraintTop_toTopOf="@id/cl_login" />
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            style="@style/Nunito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_storee"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/cl_login"
+            app:layout_constraintTop_toBottomOf="@id/tv_login" />
+
+        <TextView
+            android:id="@+id/tv_login_email"
+            style="@style/Poppins.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/email"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
+
+        <com.notsatria.storyapp.ui.components.EmailEditText
+            android:id="@+id/ed_login_email"
+            style="@style/CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="4dp"
+            android:hint="@string/input_email"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_email" />
+
+        <TextView
+            android:id="@+id/tv_login_password"
+            style="@style/Poppins.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/password"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ed_login_email" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
