@@ -28,10 +28,6 @@ class AddStoryFragment : Fragment() {
         _binding = FragmentAddStoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        addStoryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
