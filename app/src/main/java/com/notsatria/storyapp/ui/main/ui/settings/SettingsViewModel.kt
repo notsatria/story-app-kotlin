@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.notifications
+package com.notsatria.storyapp.ui.main.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

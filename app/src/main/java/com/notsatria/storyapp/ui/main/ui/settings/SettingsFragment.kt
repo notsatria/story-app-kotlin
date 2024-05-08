@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.notifications
+package com.notsatria.storyapp.ui.main.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater

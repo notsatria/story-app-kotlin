@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.dashboard
+package com.notsatria.storyapp.ui.main.ui.addstory
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

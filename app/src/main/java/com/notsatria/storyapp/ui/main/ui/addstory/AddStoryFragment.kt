@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.dashboard
+package com.notsatria.storyapp.ui.main.ui.addstory
 
 import android.os.Bundle
 import android.view.LayoutInflater

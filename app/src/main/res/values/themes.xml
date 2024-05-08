@@ -51,6 +51,16 @@
 
     <style name="Theme.StoryApp" parent="Base.Theme.StoryApp" />
 
+    <style name="StoryImageAppearance">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="StoryUserProfileImageAppearance">
+        <item name="cornerSize">50%</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/md_theme_outline</item>
+    </style>
+
     <style name="CustomEditText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/edit_text_border</item>
         <item name="fontFamily">@font/poppins_regular</item>
