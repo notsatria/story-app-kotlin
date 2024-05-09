@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import com.notsatria.storyapp.R
 
 class EmailEditText @JvmOverloads constructor(

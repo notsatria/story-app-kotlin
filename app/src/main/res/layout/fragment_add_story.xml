@@ -75,11 +75,12 @@
             app:hintEnabled="false"
             app:layout_constraintBottom_toTopOf="@id/button_add">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.notsatria.storyapp.ui.components.DescriptionEditText
                 android:id="@+id/ed_add_description"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:hint="@string/add_description" />
+                android:hint="@string/add_description"
+                android:padding="8dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
