@@ -10,6 +10,6 @@ interface ApiService {
     fun register(name: String, email: String, password: String): Call<ApiResponse>
 
     @POST("login")
-    fun login(name: String, email: String, password: String): Call<UserLoginResponse>
+    fun login(email: String, password: String): Call<UserLoginResponse>
 
 }
