@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/navigation_add_story"
         android:name="com.notsatria.storyapp.ui.main.ui.addstory.AddStoryFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_add_story"
         tools:layout="@layout/fragment_add_story" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.notsatria.storyapp.ui.main.ui.settings.SettingsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
