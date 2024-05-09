@@ -21,4 +21,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/CustomButton.Logout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="55dp"
+        android:text="@string/logout" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
