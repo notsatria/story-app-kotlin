@@ -2,11 +2,11 @@ package com.notsatria.storyapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.notsatria.storyapp.data.model.User
-import com.notsatria.storyapp.data.remote.retrofit.ApiService
 import com.notsatria.storyapp.data.Result
-import com.notsatria.storyapp.data.remote.response.ApiResponse
-import com.notsatria.storyapp.data.remote.response.UserLoginResponse
+import com.notsatria.storyapp.data.model.User
+import com.notsatria.storyapp.data.remote.response.RegisterResponse
+import com.notsatria.storyapp.data.remote.response.LoginResponse
+import com.notsatria.storyapp.data.remote.retrofit.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,66 +14,14 @@ import retrofit2.Response
 
 class AuthRepository private constructor(private val apiService: ApiService) {
 
-    private val resultRegister = MediatorLiveData<Result<ApiResponse>>()
-    private val resultLogin = MediatorLiveData<Result<User>>()
+    private val TAG = "AuthRepository"
 
-    fun register(name: String, email: String, password: String): LiveData<Result<ApiResponse>> {
-        resultRegister.value = Result.Loading
-        val client = apiService.register(name, email, password)
-        client.enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    resultRegister.value = Result.Success<ApiResponse>(
-                        ApiResponse(
-                            responseBody?.error,
-                            responseBody?.message
-                        )
-                    )
-                }
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                resultRegister.value = Result.Empty(t.message.toString())
-            }
-
-        })
-
-        return resultRegister
+    suspend fun register(name: String, email: String, password: String): RegisterResponse {
+        return apiService.register(name, email, password)
     }
 
-    fun login(email: String, password: String): LiveData<Result<User>> {
-        resultLogin.value = Result.Loading
-        val client = apiService.login(email, password)
-        client.enqueue(object : Callback<UserLoginResponse> {
-            override fun onResponse(
-                call: Call<UserLoginResponse>,
-                response: Response<UserLoginResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody?.error == false) {
-                        val loginResult = responseBody?.loginResult
-                        val user = User(
-                            id = loginResult?.userId!!,
-                            name = loginResult?.name!!,
-                            token = loginResult?.token!!
-                        )
-                        resultLogin.value = Result.Success<User>(user)
-                    } else {
-                        resultLogin.value = Result.Error(responseBody?.message!!)
-                    }
-
-                }
-            }
-
-            override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
-                resultLogin.value = Result.Error(t.message.toString())
-            }
-
-        })
-
-        return resultLogin
+    suspend fun login(name: String, password: String): LoginResponse {
+        return apiService.login(name, password)
     }
 
     companion object {

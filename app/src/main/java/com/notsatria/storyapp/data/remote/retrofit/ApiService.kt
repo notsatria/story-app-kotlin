@@ -1,15 +1,26 @@
 package com.notsatria.storyapp.data.remote.retrofit
 
-import com.notsatria.storyapp.data.remote.response.ApiResponse
-import com.notsatria.storyapp.data.remote.response.UserLoginResponse
+import com.notsatria.storyapp.data.remote.response.RegisterResponse
+import com.notsatria.storyapp.data.remote.response.LoginResponse
 import retrofit2.Call
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface ApiService {
+    @FormUrlEncoded
     @POST("register")
-    fun register(name: String, email: String, password: String): Call<ApiResponse>
+    suspend fun register(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): RegisterResponse
 
+    @FormUrlEncoded
     @POST("login")
-    fun login(email: String, password: String): Call<UserLoginResponse>
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): LoginResponse
 
 }
