@@ -70,4 +70,11 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-}
+
+    // Glide
+    implementation(libs.glide)
+
+    // groupie
+    implementation(libs.groupie)
+    implementation(libs.groupie.viewmodel)
+    implementation(libs.groupie.kotlin.android.extensions)}

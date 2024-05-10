@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.databinding.FragmentAddStoryBinding
+import com.notsatria.storyapp.ui.main.MainActivity
 
 class AddStoryFragment : Fragment() {
 

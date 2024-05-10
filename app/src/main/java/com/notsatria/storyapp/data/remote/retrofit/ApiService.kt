@@ -1,10 +1,13 @@
 package com.notsatria.storyapp.data.remote.retrofit
 
+import com.notsatria.storyapp.data.remote.response.FetchStoriesResponse
 import com.notsatria.storyapp.data.remote.response.RegisterResponse
 import com.notsatria.storyapp.data.remote.response.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -23,4 +26,8 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
+    @GET("stories")
+    suspend fun fetchAllStories(
+        @Header("Authorization") token: String
+    ): FetchStoriesResponse
 }

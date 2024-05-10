@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.databinding.FragmentSettingsBinding
+import com.notsatria.storyapp.ui.main.MainActivity
 
 class SettingsFragment : Fragment() {
 
@@ -22,6 +23,7 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val settingsViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
 

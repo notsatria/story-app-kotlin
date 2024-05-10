@@ -1,15 +1,8 @@
 package com.notsatria.storyapp.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import com.notsatria.storyapp.data.Result
-import com.notsatria.storyapp.data.model.User
-import com.notsatria.storyapp.data.remote.response.RegisterResponse
 import com.notsatria.storyapp.data.remote.response.LoginResponse
+import com.notsatria.storyapp.data.remote.response.RegisterResponse
 import com.notsatria.storyapp.data.remote.retrofit.ApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class AuthRepository private constructor(private val apiService: ApiService) {

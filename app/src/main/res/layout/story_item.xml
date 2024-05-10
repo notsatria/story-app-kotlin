@@ -2,9 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Material3.CardView.Elevated"
+    android:id="@+id/story_item_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="8dp"
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
@@ -18,7 +20,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_item_photo"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/header" />
 
@@ -28,17 +30,17 @@
             android:layout_margin="10dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_detail_profile_picture"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:id="@+id/iv_avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearance="@style/StoryUserProfileImageAppearance"
-                android:src="@drawable/header" />
+                android:src="@drawable/ic_person" />
 
             <TextView
-                android:id="@+id/tv_detail_name"
+                android:id="@+id/tv_item_name"
                 style="@style/Nunito.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,9 +48,9 @@
                 android:layout_marginStart="6dp"
                 android:text="@string/name"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_detail_profile_picture"
-                app:layout_constraintStart_toEndOf="@id/iv_detail_profile_picture"
-                app:layout_constraintTop_toTopOf="@id/iv_detail_profile_picture" />
+                app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -64,6 +66,7 @@
                     android:src="@drawable/ic_calendar" />
 
                 <TextView
+                    android:id="@+id/tv_item_date"
                     style="@style/Nunito.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

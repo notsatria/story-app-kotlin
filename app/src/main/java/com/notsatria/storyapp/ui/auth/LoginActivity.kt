@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.ActivityLoginBinding
+import com.notsatria.storyapp.ui.main.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
@@ -55,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                             is Result.Success -> {
                                 Log.d(TAG, "User data: ${result.data}")
                                 showLoading(false)
+                                navigateToActivity(MainActivity())
                                 showSnackbar("Login berhasil")
                             }
 

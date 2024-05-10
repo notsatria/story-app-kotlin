@@ -7,12 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.data.model.User
-import com.notsatria.storyapp.data.remote.response.RegisterResponse
+import com.notsatria.storyapp.data.preferences.UserPreference
 import com.notsatria.storyapp.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class LoginViewModel(
+    private val authRepository: AuthRepository,
+    private val userPreference: UserPreference
+) : ViewModel() {
 
     private val result = MediatorLiveData<Result<User>>()
 
@@ -32,6 +35,8 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
                         token = loginResult.token!!,
                         isLoggedIn = true
                     )
+                    userPreference.setTokenValue(user.token)
+                    userPreference.setUserLoginStatus(user.isLoggedIn)
                     result.value = Result.Success(user)
                 } else {
                     Log.e("LoginViewModel", "Error: ${response.message}")
