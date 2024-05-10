@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.data.repository.AuthRepository
 import com.notsatria.storyapp.di.Injection
+import com.notsatria.storyapp.ui.auth.LoginViewModel
 import com.notsatria.storyapp.ui.auth.RegisterViewModel
 
 class ViewModelFactory private constructor(
@@ -13,6 +14,7 @@ class ViewModelFactory private constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
             RegisterViewModel::class.java -> RegisterViewModel(authRepository) as T
+            LoginViewModel::class.java -> LoginViewModel(authRepository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

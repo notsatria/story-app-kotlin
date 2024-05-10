@@ -48,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
                 Log.d(TAG, "Daftar clicked")
 
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                    showSnackbar("Field tidak boleh kosong")
+                    showSnackbar(getString(R.string.field_couldnt_be_empty))
                     return@setOnClickListener
                 }
 
