@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.FragmentHomeBinding
 import com.notsatria.storyapp.ui.adapter.StoryItemAdapter
@@ -42,6 +43,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        (activity as MainActivity).supportActionBar.apply {
+            this?.title = "Stories"
+            this?.elevation = 0f
+            this?.isHideOnContentScrollEnabled = true
+        }
+
         homeViewModel.getToken().observe(viewLifecycleOwner) { token ->
             homeViewModel.fetchAllStories(token).observe(viewLifecycleOwner) { result ->
                 if (result != null) {
@@ -57,8 +64,8 @@ class HomeFragment : Fragment() {
 
                         is Result.Error -> showDialog(
                             requireContext(),
-                            "Sesi Habis",
-                            "Maaf, Sesi Anda telah habis, silahkan Login kembali"
+                            getString(R.string.session_expired_title),
+                            getString(R.string.session_expired_message)
                         )
 
                         else -> showLoading(false)
@@ -83,7 +90,7 @@ class HomeFragment : Fragment() {
         MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("OK") { _, _ ->
+            .setPositiveButton("Logout") { _, _ ->
                 destroyActivity(LoginActivity())
                 homeViewModel.clearAllSession()
             }
