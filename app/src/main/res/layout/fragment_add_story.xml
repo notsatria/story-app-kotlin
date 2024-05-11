@@ -12,6 +12,18 @@
         android:layout_height="wrap_content"
         android:paddingBottom="?attr/actionBarSize">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:backgroundTint="@color/md_theme_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/title_add_story"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/AppBarTitle" />
+
         <ImageView
             android:id="@+id/preview_image_view"
             android:layout_width="0dp"
@@ -21,7 +33,7 @@
             app:layout_constraintBottom_toTopOf="@id/llButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <LinearLayout
             android:id="@+id/llButton"
