@@ -9,6 +9,7 @@ import com.notsatria.storyapp.data.repository.StoryRepository
 import com.notsatria.storyapp.di.Injection
 import com.notsatria.storyapp.ui.auth.LoginViewModel
 import com.notsatria.storyapp.ui.auth.RegisterViewModel
+import com.notsatria.storyapp.ui.main.ui.home.DetailStoryViewModel
 import com.notsatria.storyapp.ui.main.ui.home.HomeViewModel
 import com.notsatria.storyapp.ui.splash.SplashViewModel
 
@@ -23,6 +24,7 @@ class ViewModelFactory private constructor(
             LoginViewModel::class.java -> LoginViewModel(authRepository, userPreference) as T
             SplashViewModel::class.java -> SplashViewModel(userPreference) as T
             HomeViewModel::class.java -> HomeViewModel(storyRepository, userPreference) as T
+            DetailStoryViewModel::class.java -> DetailStoryViewModel(storyRepository, userPreference) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

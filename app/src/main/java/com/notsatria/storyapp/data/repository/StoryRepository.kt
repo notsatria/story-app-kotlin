@@ -6,12 +6,12 @@ import com.notsatria.storyapp.data.remote.retrofit.ApiService
 
 class StoryRepository private constructor(private val apiService: ApiService) {
 
-    suspend fun fetchAllStories(token: String): FetchStoriesResponse {
-        return apiService.fetchAllStories("Bearer $token")
+    suspend fun fetchAllStories(): FetchStoriesResponse {
+        return apiService.fetchAllStories()
     }
 
-    suspend fun getStoryDetail(token: String, id: String): DetailStoryResponse {
-        return apiService.getDetailStory("Bearer $token", id)
+    suspend fun getStoryDetail(id: String): DetailStoryResponse {
+        return apiService.getDetailStory(id)
     }
 
     companion object {

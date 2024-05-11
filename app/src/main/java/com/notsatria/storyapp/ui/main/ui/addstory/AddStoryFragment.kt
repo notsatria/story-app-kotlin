@@ -29,12 +29,6 @@ class AddStoryFragment : Fragment() {
         _binding = FragmentAddStoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        (activity as MainActivity).supportActionBar.apply {
-            this?.title = "Add Story"
-            this?.elevation = 0f
-            this?.isHideOnContentScrollEnabled = true
-        }
-
         return root
     }
 

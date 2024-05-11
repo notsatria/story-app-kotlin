@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.data.model.User
 import com.notsatria.storyapp.data.preferences.UserPreference
+import com.notsatria.storyapp.data.remote.response.ErrorResponse
 import com.notsatria.storyapp.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -18,6 +20,7 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private val result = MediatorLiveData<Result<User>>()
+    private val TAG = "LoginViewModel"
 
     fun login(
         email: String,
@@ -37,14 +40,17 @@ class LoginViewModel(
                     )
                     userPreference.setTokenValue(user.token)
                     userPreference.setUserLoginStatus(user.isLoggedIn)
+                    Log.d(TAG, "Token: ${user.token}")
                     result.value = Result.Success(user)
                 } else {
                     Log.e("LoginViewModel", "Error: ${response.message}")
                     result.value = Result.Error(response.message!!)
                 }
             } catch (e: HttpException) {
-                val errorMessage = "HTTP error: ${e.code()} ${e.message()}"
-                result.value = Result.Error(errorMessage)
+                val jsonString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                result.value = Result.Error(errorMessage!!)
             } catch (e: Exception) {
                 e.printStackTrace()
                 result.value = Result.Error(e.message.toString())

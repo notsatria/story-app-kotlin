@@ -30,12 +30,6 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        (activity as MainActivity).supportActionBar.apply {
-            this?.title = "Settings"
-            this?.elevation = 0f
-            this?.isHideOnContentScrollEnabled = true
-        }
-
         return root
     }
 

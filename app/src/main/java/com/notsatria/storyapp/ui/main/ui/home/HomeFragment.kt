@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
+import com.notsatria.storyapp.data.remote.response.StoryItem
 import com.notsatria.storyapp.databinding.FragmentHomeBinding
 import com.notsatria.storyapp.ui.adapter.StoryItemAdapter
 import com.notsatria.storyapp.ui.auth.LoginActivity
@@ -20,6 +22,7 @@ import com.notsatria.storyapp.ui.main.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
 
 class HomeFragment : Fragment() {
@@ -43,36 +46,31 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        (activity as MainActivity).supportActionBar.apply {
-            this?.title = "Stories"
-            this?.elevation = 0f
-            this?.isHideOnContentScrollEnabled = true
-        }
-
-        homeViewModel.getToken().observe(viewLifecycleOwner) { token ->
-            homeViewModel.fetchAllStories(token).observe(viewLifecycleOwner) { result ->
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> showLoading(true)
-                        is Result.Success -> {
-                            showLoading(false)
-                            val storyItemAdapterList = result.data.listStory.map {
-                                StoryItemAdapter(it)
-                            }
-                            initRecyclerView(storyItemAdapterList)
+        homeViewModel.fetchAllStories().observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> showLoading(true)
+                    is Result.Success -> {
+                        showLoading(false)
+                        val storyItemAdapterList = result.data.listStory.map {
+                            StoryItemAdapter(
+                                storyItem = it,
+                                onItemClick = { onStoryItemClick(it) })
                         }
-
-                        is Result.Error -> showDialog(
-                            requireContext(),
-                            getString(R.string.session_expired_title),
-                            getString(R.string.session_expired_message)
-                        )
-
-                        else -> showLoading(false)
+                        initRecyclerView(storyItemAdapterList)
                     }
+
+                    is Result.Error -> showDialog(
+                        requireContext(),
+                        getString(R.string.session_expired_title),
+                        getString(R.string.session_expired_message)
+                    )
+
+                    else -> showLoading(false)
                 }
             }
         }
+
 
         return root
     }
@@ -80,6 +78,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.fetchAllStories()
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -122,6 +125,17 @@ class HomeFragment : Fragment() {
                 storySection = Section(items)
                 add(storySection)
             }
+        }
+    }
+
+    private fun onStoryItemClick(storyId: String) = OnItemClickListener { item, view ->
+        if (item is StoryItemAdapter) {
+            homeViewModel.setStoryId(storyId)
+            val fragmentManager = parentFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, DetailStoryFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

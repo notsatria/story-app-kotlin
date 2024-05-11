@@ -29,12 +29,10 @@ interface ApiService {
 
     @GET("stories")
     suspend fun fetchAllStories(
-        @Header("Authorization") token: String
     ): FetchStoriesResponse
 
     @GET("stories/{id}")
     suspend fun getDetailStory(
-        @Header("Authorization") token: String,
         @Path("id") id: String
     ): DetailStoryResponse
 }

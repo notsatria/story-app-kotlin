@@ -9,7 +9,10 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class StoryItemAdapter(private val storyItem: StoryItem) : Item() {
+class StoryItemAdapter(
+    private val storyItem: StoryItem,
+    private val onItemClick: (storyId: String) -> Unit
+) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
             val viewBinding = StoryItemBinding.bind(this)
@@ -19,6 +22,9 @@ class StoryItemAdapter(private val storyItem: StoryItem) : Item() {
                 .load(storyItem.photoUrl)
                 .placeholder(R.drawable.ic_image)
                 .into(viewBinding.ivItemPhoto)
+        }
+        viewHolder.root.setOnClickListener {
+            onItemClick(storyItem.id!!)
         }
     }
 

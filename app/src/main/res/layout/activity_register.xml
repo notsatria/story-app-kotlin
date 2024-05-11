@@ -122,6 +122,7 @@
                     android:drawablePadding="4dp"
                     android:hint="@string/input_password"
                     android:inputType="textPassword"
+                    android:paddingVertical="4dp"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
