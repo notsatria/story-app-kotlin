@@ -27,7 +27,7 @@ class StoryItemAdapter(
             viewBinding.root.setOnClickListener {
                 Log.d("StoryItemAdapter", "bind: item clicked ${storyItem.id}")
                 onItemClick(storyItem.id!!)
-                findNavController().navigate(R.id.action_navigation_home_to_detailStoryFragment)
+
             }
         }
     }

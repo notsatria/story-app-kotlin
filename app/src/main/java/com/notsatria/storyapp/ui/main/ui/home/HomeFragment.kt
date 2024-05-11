@@ -130,6 +130,12 @@ class HomeFragment : Fragment() {
 
     private fun onStoryItemClick(storyId: String) {
         homeViewModel.setStoryId(storyId)
+        startActivity(
+            Intent(requireActivity(), DetailStoryActivity::class.java).putExtra(
+                DetailStoryActivity.story_id,
+                storyId
+            )
+        )
         Log.d("HomeFragment", "onStoryItemClick: $storyId")
     }
 }
