@@ -1,11 +1,9 @@
 package com.notsatria.storyapp.ui.main.ui.addstory
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,7 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.databinding.FragmentAddStoryBinding
-import com.notsatria.storyapp.ui.main.MainActivity
+import com.notsatria.storyapp.utils.ViewModelFactory
+import com.notsatria.storyapp.utils.getImageUri
 
 class AddStoryFragment : Fragment() {
 
@@ -22,22 +21,26 @@ class AddStoryFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private var currentImageUri: Uri? = null
+    private lateinit var addStoryViewModel: AddStoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val addStoryViewModel =
-            ViewModelProvider(this).get(AddStoryViewModel::class.java)
-
         _binding = FragmentAddStoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.btnGallery.setOnClickListener {
-            startGallery()
+        initViewModel()
+
+
+        with(binding) {
+            btnGallery.setOnClickListener {
+                startGallery()
+            }
+            btnCamera.setOnClickListener {
+                startCamera()
+            }
         }
 
         return root
@@ -48,18 +51,37 @@ class AddStoryFragment : Fragment() {
         _binding = null
     }
 
+    private fun initViewModel() {
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
+        addStoryViewModel = ViewModelProvider(this, factory)[AddStoryViewModel::class.java]
+    }
+
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private fun startCamera() {
+        addStoryViewModel.setImageUri(getImageUri(requireContext()))
+        launcherIntentCamera.launch(addStoryViewModel.currentImageUri.value)
     }
 
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri ->
         if (uri != null) {
-            currentImageUri = uri
+            addStoryViewModel.setImageUri(uri)
             showImage()
         } else
             showToast(getString(R.string.image_not_available))
+    }
+
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            showImage()
+        }
+
     }
 
     private fun showToast(message: String) {
@@ -67,7 +89,7 @@ class AddStoryFragment : Fragment() {
     }
 
     private fun showImage() {
-        currentImageUri?.let {
+        addStoryViewModel.currentImageUri.value.let {
             binding.previewImageView.setImageURI(it)
         }
     }
