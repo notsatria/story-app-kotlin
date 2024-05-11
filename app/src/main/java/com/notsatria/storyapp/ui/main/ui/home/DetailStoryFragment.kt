@@ -32,14 +32,14 @@ class DetailStoryFragment : Fragment() {
         _binding = FragmentDetailStoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initViewModel()
+
         homeViewModel.getStoryId().observe(viewLifecycleOwner) { storyId ->
             detailStoryViewModel.getStoryDetail(storyId)
                 .observe(viewLifecycleOwner) { result ->
                     Log.d("DetailStoryFragment", "Result: $result")
                 }
         }
-
-
 
         return root
     }

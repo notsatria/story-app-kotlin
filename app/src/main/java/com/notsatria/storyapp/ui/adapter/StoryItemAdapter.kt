@@ -1,5 +1,7 @@
 package com.notsatria.storyapp.ui.adapter
 
+import android.util.Log
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.remote.response.StoryItem
@@ -11,7 +13,7 @@ import java.util.Locale
 
 class StoryItemAdapter(
     private val storyItem: StoryItem,
-    private val onItemClick: (storyId: String) -> Unit
+    private val onItemClick: (String) -> Unit
 ) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
@@ -22,9 +24,11 @@ class StoryItemAdapter(
                 .load(storyItem.photoUrl)
                 .placeholder(R.drawable.ic_image)
                 .into(viewBinding.ivItemPhoto)
-        }
-        viewHolder.root.setOnClickListener {
-            onItemClick(storyItem.id!!)
+            viewBinding.root.setOnClickListener {
+                Log.d("StoryItemAdapter", "bind: item clicked ${storyItem.id}")
+                onItemClick(storyItem.id!!)
+                findNavController().navigate(R.id.action_navigation_home_to_detailStoryFragment)
+            }
         }
     }
 

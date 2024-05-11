@@ -3,26 +3,23 @@ package com.notsatria.storyapp.ui.main.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
-import com.notsatria.storyapp.data.remote.response.StoryItem
 import com.notsatria.storyapp.databinding.FragmentHomeBinding
 import com.notsatria.storyapp.ui.adapter.StoryItemAdapter
 import com.notsatria.storyapp.ui.auth.LoginActivity
-import com.notsatria.storyapp.ui.main.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
 
 class HomeFragment : Fragment() {
@@ -55,7 +52,10 @@ class HomeFragment : Fragment() {
                         val storyItemAdapterList = result.data.listStory.map {
                             StoryItemAdapter(
                                 storyItem = it,
-                                onItemClick = { onStoryItemClick(it) })
+                                onItemClick = {
+                                    onStoryItemClick(it)
+                                }
+                            )
                         }
                         initRecyclerView(storyItemAdapterList)
                     }
@@ -128,14 +128,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onStoryItemClick(storyId: String) = OnItemClickListener { item, view ->
-        if (item is StoryItemAdapter) {
-            homeViewModel.setStoryId(storyId)
-            val fragmentManager = parentFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, DetailStoryFragment())
-                .addToBackStack(null)
-                .commit()
-        }
+    private fun onStoryItemClick(storyId: String) {
+        homeViewModel.setStoryId(storyId)
+        Log.d("HomeFragment", "onStoryItemClick: $storyId")
     }
 }
