@@ -40,7 +40,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
         initViewModel()
 
-        val storyId = intent.getStringExtra(story_id)
+        val storyId = intent.getStringExtra(STORY_ID)
 
         detailStoryViewModel.getStoryDetail(storyId ?: "")
             .observe(this@DetailStoryActivity) { result ->
@@ -127,7 +127,7 @@ class DetailStoryActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val story_id = "story_id"
+        const val STORY_ID = "story_id"
     }
 
 }

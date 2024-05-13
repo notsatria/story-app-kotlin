@@ -1,8 +1,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.CardView.Elevated"
     android:id="@+id/story_item_cardview"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
@@ -34,10 +34,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearance="@style/StoryUserProfileImageAppearance"
-                android:src="@drawable/ic_person" />
+                app:shapeAppearance="@style/StoryUserProfileImageAppearance" />
 
             <TextView
                 android:id="@+id/tv_item_name"

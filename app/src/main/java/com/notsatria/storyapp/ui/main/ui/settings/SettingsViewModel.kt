@@ -1,13 +1,18 @@
 package com.notsatria.storyapp.ui.main.ui.settings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.notsatria.storyapp.data.preferences.UserPreference
+import kotlinx.coroutines.launch
 
-class SettingsViewModel : ViewModel() {
+class SettingsViewModel(private val userPreference: UserPreference) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    fun logout() {
+        viewModelScope.launch {
+            userPreference.apply {
+                setTokenValue("")
+                setUserLoginStatus(false)
+            }
+        }
     }
-    val text: LiveData<String> = _text
 }

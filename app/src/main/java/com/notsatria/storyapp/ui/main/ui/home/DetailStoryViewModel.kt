@@ -21,7 +21,6 @@ class DetailStoryViewModel(
 ) : ViewModel() {
 
     private val result = MediatorLiveData<Result<DetailStoryResponse>>()
-    private val TAG = "DetailStoryViewModel"
 
     fun getStoryDetail(id: String): LiveData<Result<DetailStoryResponse>> {
         viewModelScope.launch {
@@ -59,5 +58,9 @@ class DetailStoryViewModel(
                 setUserLoginStatus(false)
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "DetailStoryViewModel"
     }
 }

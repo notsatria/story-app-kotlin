@@ -21,7 +21,6 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) :
     ViewModel() {
 
     private val result = MediatorLiveData<Result<ErrorResponse>>()
-    private val TAG = "AddStoryViewModel"
 
     fun postStory(description: String, imageFile: File): LiveData<Result<ErrorResponse>> {
         viewModelScope.launch {
@@ -55,5 +54,9 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) :
         }
 
         return result
+    }
+
+    companion object {
+        private const val TAG = "AddStoryViewModel"
     }
 }

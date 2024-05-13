@@ -1,5 +1,6 @@
 package com.notsatria.storyapp.ui.main.ui.home
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -130,11 +131,12 @@ class HomeFragment : Fragment() {
 
     private fun onStoryItemClick(storyId: String) {
         homeViewModel.setStoryId(storyId)
+        val intent =  Intent(requireActivity(), DetailStoryActivity::class.java).putExtra(
+            DetailStoryActivity.STORY_ID,
+            storyId
+        )
         startActivity(
-            Intent(requireActivity(), DetailStoryActivity::class.java).putExtra(
-                DetailStoryActivity.story_id,
-                storyId
-            )
+           intent
         )
         Log.d("HomeFragment", "onStoryItemClick: $storyId")
     }

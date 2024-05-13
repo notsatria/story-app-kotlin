@@ -7,8 +7,6 @@ import com.notsatria.storyapp.data.remote.retrofit.ApiService
 
 class AuthRepository private constructor(private val apiService: ApiService) {
 
-    private val TAG = "AuthRepository"
-
     suspend fun register(name: String, email: String, password: String): RegisterResponse {
         return apiService.register(name, email, password)
     }
@@ -18,6 +16,8 @@ class AuthRepository private constructor(private val apiService: ApiService) {
     }
 
     companion object {
+        private const val TAG = "AuthRepository"
+
         @Volatile
         private var instance: AuthRepository? = null
         fun getInstance(

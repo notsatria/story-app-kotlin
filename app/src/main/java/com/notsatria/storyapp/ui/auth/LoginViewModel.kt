@@ -20,7 +20,6 @@ class LoginViewModel(
 ) : ViewModel() {
 
     private val result = MediatorLiveData<Result<User>>()
-    private val TAG = "LoginViewModel"
 
     fun login(
         email: String,
@@ -59,4 +58,7 @@ class LoginViewModel(
         return result
     }
 
+    companion object {
+        private const val TAG = "LoginViewModel"
+    }
 }

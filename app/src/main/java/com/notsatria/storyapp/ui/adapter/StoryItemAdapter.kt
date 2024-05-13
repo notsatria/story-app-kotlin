@@ -27,7 +27,6 @@ class StoryItemAdapter(
             viewBinding.root.setOnClickListener {
                 Log.d("StoryItemAdapter", "bind: item clicked ${storyItem.id}")
                 onItemClick(storyItem.id!!)
-
             }
         }
     }

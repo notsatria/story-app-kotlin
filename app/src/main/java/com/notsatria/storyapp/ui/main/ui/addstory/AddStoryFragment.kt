@@ -56,7 +56,6 @@ class AddStoryFragment : Fragment() {
             }
 
         }
-
         return root
     }
 
@@ -123,6 +122,8 @@ class AddStoryFragment : Fragment() {
                                     Intent(
                                         requireContext(),
                                         MainActivity::class.java
+                                    ).addFlags(
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     )
                                 )
                             }

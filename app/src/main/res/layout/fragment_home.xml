@@ -54,7 +54,8 @@
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/error" />
+            android:src="@drawable/error"
+            android:contentDescription="@string/image_something_wrong" />
 
         <TextView
             style="@style/Nunito.Bold"
