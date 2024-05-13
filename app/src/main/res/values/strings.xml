@@ -40,4 +40,5 @@
     <string name="session_expired_title">Sesi Habis</string>
     <string name="title_detail_story">Detail Story</string>
     <string name="image_not_available">Gambar tidak tersedia</string>
+    <string name="image_and_description_couldnt_be_empty">Gambar atau Deskripsi Tidak Boleh Kosong</string>
 </resources>

@@ -1,14 +1,19 @@
 package com.notsatria.storyapp.data.remote.retrofit
 
 import com.notsatria.storyapp.data.remote.response.DetailStoryResponse
+import com.notsatria.storyapp.data.remote.response.ErrorResponse
 import com.notsatria.storyapp.data.remote.response.FetchStoriesResponse
 import com.notsatria.storyapp.data.remote.response.LoginResponse
 import com.notsatria.storyapp.data.remote.response.RegisterResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -35,4 +40,11 @@ interface ApiService {
     suspend fun getDetailStory(
         @Path("id") id: String
     ): DetailStoryResponse
+
+    @Multipart
+    @POST("stories")
+    suspend fun postStory(
+        @Part("description") description: RequestBody,
+        @Part file: MultipartBody.Part
+    ): ErrorResponse
 }

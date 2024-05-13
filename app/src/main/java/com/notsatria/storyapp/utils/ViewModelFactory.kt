@@ -26,7 +26,7 @@ class ViewModelFactory private constructor(
             SplashViewModel::class.java -> SplashViewModel(userPreference) as T
             HomeViewModel::class.java -> HomeViewModel(storyRepository, userPreference) as T
             DetailStoryViewModel::class.java -> DetailStoryViewModel(storyRepository, userPreference) as T
-            AddStoryViewModel::class.java -> AddStoryViewModel() as T
+            AddStoryViewModel::class.java -> AddStoryViewModel(storyRepository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

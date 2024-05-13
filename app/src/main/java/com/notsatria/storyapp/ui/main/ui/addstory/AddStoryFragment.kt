@@ -1,6 +1,9 @@
 package com.notsatria.storyapp.ui.main.ui.addstory
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +13,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.R
+import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.FragmentAddStoryBinding
+import com.notsatria.storyapp.ui.main.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 import com.notsatria.storyapp.utils.getImageUri
+import com.notsatria.storyapp.utils.reduceFileImage
+import com.notsatria.storyapp.utils.uriToFile
 
 class AddStoryFragment : Fragment() {
 
@@ -22,6 +29,7 @@ class AddStoryFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var addStoryViewModel: AddStoryViewModel
+    private var currentImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +46,15 @@ class AddStoryFragment : Fragment() {
             btnGallery.setOnClickListener {
                 startGallery()
             }
+
             btnCamera.setOnClickListener {
                 startCamera()
             }
+
+            buttonAdd.setOnClickListener {
+                postStory()
+            }
+
         }
 
         return root
@@ -61,15 +75,15 @@ class AddStoryFragment : Fragment() {
     }
 
     private fun startCamera() {
-        addStoryViewModel.setImageUri(getImageUri(requireContext()))
-        launcherIntentCamera.launch(addStoryViewModel.currentImageUri.value)
+        currentImageUri = getImageUri(requireContext())
+        launcherIntentCamera.launch(currentImageUri)
     }
 
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri ->
         if (uri != null) {
-            addStoryViewModel.setImageUri(uri)
+            currentImageUri = uri
             showImage()
         } else
             showToast(getString(R.string.image_not_available))
@@ -84,12 +98,56 @@ class AddStoryFragment : Fragment() {
 
     }
 
+    private fun postStory() {
+        Log.d(
+            "AddStoryFragment",
+            "ImageUri: $currentImageUri Description: ${binding.edAddDescription.text}"
+        )
+        if (binding.edAddDescription.text!!.isBlank() || currentImageUri == null) {
+            showToast(getString(R.string.image_and_description_couldnt_be_empty))
+            return
+        }
+
+        currentImageUri?.let { uri ->
+            val description = binding.edAddDescription.text.toString()
+            val imageFile = uriToFile(uri, requireContext())
+
+            addStoryViewModel.postStory(description, imageFile.reduceFileImage())
+                .observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> showLoading(true)
+                            is Result.Success -> {
+                                showLoading(false)
+                                startActivity(
+                                    Intent(
+                                        requireContext(),
+                                        MainActivity::class.java
+                                    )
+                                )
+                            }
+
+                            else -> {
+                                showLoading(false)
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                        }
+                    }
+                }
+
+        }
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
     private fun showImage() {
-        addStoryViewModel.currentImageUri.value.let {
+        currentImageUri.let {
             binding.previewImageView.setImageURI(it)
         }
     }
