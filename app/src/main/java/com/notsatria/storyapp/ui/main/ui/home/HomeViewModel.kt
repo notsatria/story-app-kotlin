@@ -22,7 +22,6 @@ class HomeViewModel(
 ) : ViewModel() {
 
     private val result = MediatorLiveData<Result<FetchStoriesResponse>>()
-    private val _storyId = MutableLiveData<String>()
 
     fun fetchAllStories(): LiveData<Result<FetchStoriesResponse>> {
         viewModelScope.launch {
@@ -60,14 +59,6 @@ class HomeViewModel(
                 setUserLoginStatus(false)
             }
         }
-    }
-
-    fun setStoryId(storyId: String) {
-        _storyId.value = storyId
-    }
-
-    fun getStoryId(): LiveData<String> {
-        return _storyId
     }
 
     companion object {

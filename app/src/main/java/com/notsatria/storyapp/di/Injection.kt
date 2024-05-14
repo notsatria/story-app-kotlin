@@ -1,6 +1,7 @@
 package com.notsatria.storyapp.di
 
 import android.content.Context
+import android.util.Log
 import com.notsatria.storyapp.data.preferences.UserPreference
 import com.notsatria.storyapp.data.remote.retrofit.ApiConfig
 import com.notsatria.storyapp.data.repository.AuthRepository
@@ -16,6 +17,7 @@ object Injection {
 
     fun provideAuthRepository(context: Context): AuthRepository {
         val token = getToken(context)
+        Log.d("Injection", "provideAuthRepository: $token")
         return AuthRepository.getInstance(apiService = ApiConfig.getApiService(context, token))
     }
 

@@ -3,6 +3,7 @@ package com.notsatria.storyapp.ui.main.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailStoryBinding
     private lateinit var detailStoryViewModel: DetailStoryViewModel
+    private var transitionName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class DetailStoryActivity : AppCompatActivity() {
         initViewModel()
 
         val storyId = intent.getStringExtra(STORY_ID)
+        transitionName = intent.getStringExtra(TRANSITION_NAME)
 
         detailStoryViewModel.getStoryDetail(storyId ?: "")
             .observe(this@DetailStoryActivity) { result ->
@@ -78,11 +81,13 @@ class DetailStoryActivity : AppCompatActivity() {
 
     private fun setupView(story: Story) {
         with(binding) {
+            Log.d("DetaiStoryActivity", "setupView: $transitionName")
             Glide.with(this@DetailStoryActivity)
                 .load(story.photoUrl)
                 .placeholder(R.drawable.ic_image)
                 .into(ivDetailPhoto)
 
+            ivDetailPhoto.transitionName = transitionName
             tvDetailName.text = story.name
             tvDetailDescription.text = story.description
 
@@ -128,6 +133,7 @@ class DetailStoryActivity : AppCompatActivity() {
 
     companion object {
         const val STORY_ID = "story_id"
+        const val TRANSITION_NAME = "transition_name"
     }
 
 }

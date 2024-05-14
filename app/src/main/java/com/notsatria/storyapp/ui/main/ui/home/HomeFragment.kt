@@ -53,8 +53,8 @@ class HomeFragment : Fragment() {
                         val storyItemAdapterList = result.data.listStory.map {
                             StoryItemAdapter(
                                 storyItem = it,
-                                onItemClick = {
-                                    onStoryItemClick(it)
+                                onItemClick = { storyId, transitionName ->
+                                    onStoryItemClick(storyId, transitionName)
                                 }
                             )
                         }
@@ -129,15 +129,22 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onStoryItemClick(storyId: String) {
-        homeViewModel.setStoryId(storyId)
-        val intent =  Intent(requireActivity(), DetailStoryActivity::class.java).putExtra(
-            DetailStoryActivity.STORY_ID,
-            storyId
-        )
+    private fun onStoryItemClick(storyId: String, transitionName: String) {
+        val intent = Intent(requireActivity(), DetailStoryActivity::class.java).apply {
+            putExtra(
+                DetailStoryActivity.STORY_ID,
+                storyId
+            )
+            putExtra(
+                DetailStoryActivity.TRANSITION_NAME,
+                transitionName
+            )
+        }
+        val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity(), binding.rvStory, transitionName)
         startActivity(
-           intent
+            intent,
+            options.toBundle()
         )
-        Log.d("HomeFragment", "onStoryItemClick: $storyId")
+        Log.d("HomeFragment", "Story ID: $storyId, Transition Name: $transitionName")
     }
 }

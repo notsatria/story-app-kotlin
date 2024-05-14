@@ -13,7 +13,7 @@ import java.util.Locale
 
 class StoryItemAdapter(
     private val storyItem: StoryItem,
-    private val onItemClick: (String) -> Unit
+    private val onItemClick: (String, String) -> Unit
 ) : Item() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.apply {
@@ -24,9 +24,11 @@ class StoryItemAdapter(
                 .load(storyItem.photoUrl)
                 .placeholder(R.drawable.ic_image)
                 .into(viewBinding.ivItemPhoto)
+            val transitionName = "story_image_${storyItem.id}"
+            viewBinding.ivItemPhoto.transitionName = transitionName
             viewBinding.root.setOnClickListener {
                 Log.d("StoryItemAdapter", "bind: item clicked ${storyItem.id}")
-                onItemClick(storyItem.id!!)
+                onItemClick(storyItem.id!!, transitionName)
             }
         }
     }
