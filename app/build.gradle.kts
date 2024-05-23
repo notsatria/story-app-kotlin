@@ -79,4 +79,8 @@ dependencies {
     // groupie
     implementation(libs.groupie)
     implementation(libs.groupie.viewmodel)
-    implementation(libs.groupie.kotlin.android.extensions)}
+    implementation(libs.groupie.kotlin.android.extensions)
+
+    // paging
+    implementation(libs.androidx.paging.runtime.ktx)
+}

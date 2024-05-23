@@ -38,6 +38,8 @@ interface ApiService {
     // Stories
     @GET("stories")
     suspend fun fetchAllStories(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20,
     ): StoryResponse
 
     @GET("stories/{id}")
