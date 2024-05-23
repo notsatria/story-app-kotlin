@@ -1,10 +1,16 @@
 package com.notsatria.storyapp.data.remote.retrofit
 
 import android.content.Context
+import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.notsatria.storyapp.BuildConfig
+import com.notsatria.storyapp.data.preferences.UserPreference
+import com.notsatria.storyapp.data.preferences.dataStore
+import com.notsatria.storyapp.di.Injection
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -14,7 +20,7 @@ class ApiConfig() {
     companion object {
         const val BASE_URL = BuildConfig.BASE_URL
 
-        fun getApiService(context: Context, token: String): ApiService {
+        fun getApiService(context: Context, token: String?): ApiService {
             val collector = ChuckerCollector(
                 context = context,
                 showNotification = true,

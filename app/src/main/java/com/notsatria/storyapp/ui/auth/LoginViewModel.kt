@@ -37,7 +37,7 @@ class LoginViewModel(
                         token = loginResult.token!!,
                         isLoggedIn = true
                     )
-                    userPreference.setTokenValue(user.token)
+                    userPreference.setTokenValue(loginResult.token!!)
                     userPreference.setUserLoginStatus(user.isLoggedIn)
                     Log.d(TAG, "Token: ${user.token}")
                     result.value = Result.Success(user)

@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.home
+package com.notsatria.storyapp.ui.home
 
 import android.content.Context
 import android.content.Intent

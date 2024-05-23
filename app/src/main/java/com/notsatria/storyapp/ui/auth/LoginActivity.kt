@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.ActivityLoginBinding
-import com.notsatria.storyapp.ui.main.MainActivity
+import com.notsatria.storyapp.ui.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {

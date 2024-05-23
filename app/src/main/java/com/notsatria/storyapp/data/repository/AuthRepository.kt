@@ -18,13 +18,9 @@ class AuthRepository private constructor(private val apiService: ApiService) {
     companion object {
         private const val TAG = "AuthRepository"
 
-        @Volatile
-        private var instance: AuthRepository? = null
         fun getInstance(
             apiService: ApiService
         ): AuthRepository =
-            instance ?: synchronized(this) {
-                instance ?: AuthRepository(apiService)
-            }.also { instance = it }
+            AuthRepository(apiService)
     }
 }

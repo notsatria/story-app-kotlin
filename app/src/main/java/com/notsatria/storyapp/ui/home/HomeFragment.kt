@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.home
+package com.notsatria.storyapp.ui.home
 
 import android.app.ActivityOptions
 import android.content.Context
@@ -43,6 +43,10 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.fabMap.setOnClickListener {
+            startActivity(Intent(requireActivity(), MapsActivity::class.java))
+        }
 
         homeViewModel.fetchAllStories().observe(viewLifecycleOwner) { result ->
             if (result != null) {
