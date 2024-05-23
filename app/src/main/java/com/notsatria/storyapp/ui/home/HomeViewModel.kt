@@ -27,31 +27,6 @@ class HomeViewModel(
 
     private val result = MediatorLiveData<Result<StoryResponse>>()
 
-    fun fetchAllStories(): LiveData<Result<StoryResponse>> {
-        viewModelScope.launch {
-            try {
-                result.value = Result.Loading
-                val response = storyRepository.fetchAllStories()
-                if (response.error == false) {
-                    Log.d(TAG, "Message: ${response.message}")
-                    result.value = Result.Success(response)
-                } else {
-                    Log.e(TAG, "Error: ${response.message}")
-                    result.value = Result.Error(response.message!!)
-                }
-            } catch (e: HttpException) {
-                val jsonString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                result.value = Result.Error(errorMessage!!)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                result.value = Result.Error(e.message.toString())
-            }
-        }
-        return result
-    }
-
     val stories: LiveData<PagingData<StoryItem>> = storyRepository.getStories().cachedIn(viewModelScope)
 
     fun clearAllSession() {

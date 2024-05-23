@@ -25,10 +25,6 @@ class StoryRepository private constructor(private val apiService: ApiService) {
         ).liveData
     }
 
-    suspend fun fetchAllStories(): StoryResponse {
-        return apiService.fetchAllStories()
-    }
-
     suspend fun getStoryDetail(id: String): DetailStoryResponse {
         return apiService.getDetailStory(id)
     }
