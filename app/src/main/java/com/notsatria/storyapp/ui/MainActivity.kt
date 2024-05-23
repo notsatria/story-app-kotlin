@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main
+package com.notsatria.storyapp.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,17 +1,15 @@
-package com.notsatria.storyapp.ui.main.ui.home
+package com.notsatria.storyapp.ui.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.data.preferences.UserPreference
 import com.notsatria.storyapp.data.remote.response.ErrorResponse
-import com.notsatria.storyapp.data.remote.response.FetchStoriesResponse
+import com.notsatria.storyapp.data.remote.response.StoryResponse
 import com.notsatria.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -21,9 +19,9 @@ class HomeViewModel(
     private val userPreference: UserPreference
 ) : ViewModel() {
 
-    private val result = MediatorLiveData<Result<FetchStoriesResponse>>()
+    private val result = MediatorLiveData<Result<StoryResponse>>()
 
-    fun fetchAllStories(): LiveData<Result<FetchStoriesResponse>> {
+    fun fetchAllStories(): LiveData<Result<StoryResponse>> {
         viewModelScope.launch {
             try {
                 result.value = Result.Loading
@@ -46,10 +44,6 @@ class HomeViewModel(
             }
         }
         return result
-    }
-
-    fun getToken(): LiveData<String> {
-        return userPreference.getTokenValue().asLiveData()
     }
 
     fun clearAllSession() {

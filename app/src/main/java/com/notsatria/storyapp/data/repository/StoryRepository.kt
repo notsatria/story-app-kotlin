@@ -2,14 +2,14 @@ package com.notsatria.storyapp.data.repository
 
 import com.notsatria.storyapp.data.remote.response.DetailStoryResponse
 import com.notsatria.storyapp.data.remote.response.ErrorResponse
-import com.notsatria.storyapp.data.remote.response.FetchStoriesResponse
+import com.notsatria.storyapp.data.remote.response.StoryResponse
 import com.notsatria.storyapp.data.remote.retrofit.ApiService
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class StoryRepository private constructor(private val apiService: ApiService) {
 
-    suspend fun fetchAllStories(): FetchStoriesResponse {
+    suspend fun fetchAllStories(): StoryResponse {
         return apiService.fetchAllStories()
     }
 
@@ -21,14 +21,14 @@ class StoryRepository private constructor(private val apiService: ApiService) {
         return apiService.postStory(description, file)
     }
 
+    suspend fun getStoriesWithLocation(): StoryResponse {
+        return apiService.getStoriesWithLocation()
+    }
+
     companion object {
-        @Volatile
-        private var instance: StoryRepository? = null
         fun getInstance(
             apiService: ApiService
         ): StoryRepository =
-            instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService)
-            }.also { instance = it }
+            StoryRepository(apiService)
     }
 }

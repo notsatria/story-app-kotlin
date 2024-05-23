@@ -2,7 +2,7 @@ package com.notsatria.storyapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class FetchStoriesResponse(
+data class StoryResponse(
 
     @field:SerializedName("listStory")
     val listStory: List<StoryItem> = emptyList(),

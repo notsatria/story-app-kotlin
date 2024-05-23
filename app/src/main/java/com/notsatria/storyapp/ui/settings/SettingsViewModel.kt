@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.settings
+package com.notsatria.storyapp.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

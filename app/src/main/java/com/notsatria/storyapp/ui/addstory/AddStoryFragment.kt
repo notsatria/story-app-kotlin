@@ -1,4 +1,4 @@
-package com.notsatria.storyapp.ui.main.ui.addstory
+package com.notsatria.storyapp.ui.addstory
 
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.FragmentAddStoryBinding
-import com.notsatria.storyapp.ui.main.MainActivity
+import com.notsatria.storyapp.ui.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 import com.notsatria.storyapp.utils.getImageUri
 import com.notsatria.storyapp.utils.reduceFileImage

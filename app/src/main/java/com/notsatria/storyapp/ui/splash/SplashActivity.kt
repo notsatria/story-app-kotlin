@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.notsatria.storyapp.R
 import com.notsatria.storyapp.ui.auth.LoginActivity
-import com.notsatria.storyapp.ui.main.MainActivity
+import com.notsatria.storyapp.ui.MainActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
