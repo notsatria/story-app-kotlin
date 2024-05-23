@@ -3,6 +3,7 @@ package com.notsatria.storyapp.ui.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 
@@ -30,6 +31,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.apply {
+            title = "Stories Map"
+            setHomeButtonEnabled(true)
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager

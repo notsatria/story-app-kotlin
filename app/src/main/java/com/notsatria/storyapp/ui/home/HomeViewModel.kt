@@ -5,10 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.google.gson.Gson
 import com.notsatria.storyapp.data.Result
+import com.notsatria.storyapp.data.paging.StoryPagingSource
 import com.notsatria.storyapp.data.preferences.UserPreference
 import com.notsatria.storyapp.data.remote.response.ErrorResponse
+import com.notsatria.storyapp.data.remote.response.StoryItem
 import com.notsatria.storyapp.data.remote.response.StoryResponse
 import com.notsatria.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.launch
@@ -21,30 +27,7 @@ class HomeViewModel(
 
     private val result = MediatorLiveData<Result<StoryResponse>>()
 
-    fun fetchAllStories(): LiveData<Result<StoryResponse>> {
-        viewModelScope.launch {
-            try {
-                result.value = Result.Loading
-                val response = storyRepository.fetchAllStories()
-                if (response.error == false) {
-                    Log.d(TAG, "Message: ${response.message}")
-                    result.value = Result.Success(response)
-                } else {
-                    Log.e(TAG, "Error: ${response.message}")
-                    result.value = Result.Error(response.message!!)
-                }
-            } catch (e: HttpException) {
-                val jsonString = e.response()?.errorBody()?.string()
-                val errorBody = Gson().fromJson(jsonString, ErrorResponse::class.java)
-                val errorMessage = errorBody.message
-                result.value = Result.Error(errorMessage!!)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                result.value = Result.Error(e.message.toString())
-            }
-        }
-        return result
-    }
+    val stories: LiveData<PagingData<StoryItem>> = storyRepository.getStories().cachedIn(viewModelScope)
 
     fun clearAllSession() {
         viewModelScope.launch {
