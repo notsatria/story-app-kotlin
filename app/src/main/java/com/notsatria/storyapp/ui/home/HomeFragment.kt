@@ -11,16 +11,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.notsatria.storyapp.R
-import com.notsatria.storyapp.data.Result
 import com.notsatria.storyapp.databinding.FragmentHomeBinding
+import com.notsatria.storyapp.ui.adapter.LoadingStateAdapter
 import com.notsatria.storyapp.ui.adapter.StoryItemAdapter
 import com.notsatria.storyapp.ui.auth.LoginActivity
 import com.notsatria.storyapp.utils.ViewModelFactory
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Section
 
 class HomeFragment : Fragment() {
@@ -48,34 +44,7 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireActivity(), MapsActivity::class.java))
         }
 
-        homeViewModel.fetchAllStories().observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Success -> {
-                        showLoading(false)
-                        val storyItemAdapterList = result.data.listStory.map {
-                            StoryItemAdapter(
-                                storyItem = it,
-                                onItemClick = { storyId, transitionName ->
-                                    onStoryItemClick(storyId, transitionName)
-                                }
-                            )
-                        }
-                        initRecyclerView(storyItemAdapterList)
-                    }
-
-                    is Result.Error -> showDialog(
-                        requireContext(),
-                        getString(R.string.session_expired_title),
-                        getString(R.string.session_expired_message)
-                    )
-
-                    else -> showLoading(false)
-                }
-            }
-        }
-
+        getStories()
 
         return root
     }
@@ -87,50 +56,26 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.fetchAllStories()
+        getStories()
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showDialog(context: Context, title: String, message: String) {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton("Logout") { _, _ ->
-                destroyActivity(LoginActivity())
-                homeViewModel.clearAllSession()
+    private fun getStories() {
+        val adapter = StoryItemAdapter(onItemClick = { storyId, transitionName ->
+            onStoryItemClick(storyId, transitionName)
+        })
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
             }
-            .setOnDismissListener {
-                destroyActivity(LoginActivity())
-                homeViewModel.clearAllSession()
-            }
-            .show()
-    }
-
-    private fun destroyActivity(activity: AppCompatActivity) {
-        startActivity(
-            Intent(
-                requireActivity(),
-                activity::class.java
-            ).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         )
+        homeViewModel.stories.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
+        }
     }
 
     private fun initViewModel() {
         val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-    }
-
-    private fun initRecyclerView(items: List<StoryItemAdapter>) {
-        binding.rvStory.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = GroupAdapter<GroupieViewHolder>().apply {
-                storySection = Section(items)
-                add(storySection)
-            }
-        }
     }
 
     private fun onStoryItemClick(storyId: String, transitionName: String) {
@@ -144,7 +89,11 @@ class HomeFragment : Fragment() {
                 transitionName
             )
         }
-        val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity(), binding.rvStory, transitionName)
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            requireActivity(),
+            binding.rvStory,
+            transitionName
+        )
         startActivity(
             intent,
             options.toBundle()
